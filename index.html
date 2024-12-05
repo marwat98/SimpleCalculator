@@ -4,40 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/14.0.0/math.js" integrity="sha512-Z4SWUL3xAVPPSOiBAYUjWdtZDmFU9mlM8CUJP+5PkU8qHUCA1uhI41Tzy+Znb6VeHFEM2+xcv+Hj8Ai4Hfs4CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Simple Calculator</title>
 </head>
 <body>
     <section class="calculator">
-        <div class="display_input" id = "display">
-            <input type="display" readonly>
+        <div class="display_input">
+            <input id="display" readonly>
+        </div>
+        <div class="display_result">
+            <input id="result" readonly>
         </div>
         <div class="keys">
-            <button class = "calculate" onclick = "clear()">C</button>
-            <button class = "calculate">(</button>
-            <button class = "calculate">)</button>
-            <button class = "calculate">mod</button>
-            <button class = "calculate" onclick = "addToDisplay('3,141592654')">Pi</button>
+            <button class = "calclute_function" onclick="clearDisplay()">C</button>
+            <button class = "calclute_function" onclick="bracetLeft()">(</button>
+            <button class = "calclute_function" onclick="bracetRight()">)</button>
+            <button class = "calclute_function">mod</button>
+            <button class = "calclute_function" onclick = "addToDisplay('3,141592654')">&#960;</button>
             <button class = "calculate" onclick = "addToDisplay('7')">7</button>
             <button class = "calculate" onclick = "addToDisplay('8')">8</button>
             <button class = "calculate" onclick = "addToDisplay('9')">9</button>
-            <button class = "calculate" onclick = "addToDisplay('/')">/</button>
-            <button class = "calculate" >Pierw</button>
+            <button class = "calclute_function" onclick = "addToDisplay('/')">&divide;</button>
+            <button class = "calclute_function" >&radic;</button>
             <button class = "calculate" onclick = "addToDisplay('4')">4</button>
             <button class = "calculate" onclick = "addToDisplay('5')">5</button>
             <button class = "calculate" onclick = "addToDisplay('6')">6</button>
-            <button class = "calculate" onclick = "addToDisplay('*')">x</button>
-            <button class = "calculate">x^2</button>
+            <button class = "calclute_function" onclick = "addToDisplay('*')">x</button>
+            <button class = "calclute_function">x2</button>
             <button class = "calculate" onclick = "addToDisplay('1')">1</button>
             <button class = "calculate" onclick = "addToDisplay('2')">2</button>
             <button class = "calculate" onclick = "addToDisplay('3')">3</button>
-            <button class = "calculate" onclick = "addToDisplay('-')">-</button>
+            <button class = "calclute_function" onclick = "addToDisplay('-')">-</button>
             <button class="equals" onclick = "equals()">=</button>
             <button class = "calculate" onclick = "addToDisplay('0')">0</button>
-            <button class = "calculate"onclick = "addToDisplay(',')">,</button>
-            <button class = "calculate" onclick = "addToDisplay('%')">%</button>
-            <button class = "calculate" onclick = "addToDisplay('+')">+</button>
+            <button class = "calclute_function"onclick = "addToDisplay('.')">,</button>
+            <button class = "calclute_function" onclick = "addToDisplay('%')">%</button>
+            <button class = "calclute_function" onclick = "addToDisplay('+')">+</button>
         </div> 
     </section>
-    <script href="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
