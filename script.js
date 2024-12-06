@@ -5,6 +5,7 @@ const result = document.getElementById("result");
 let leftBracket = 0;
 let rightBracket = 0;
 
+
 function clearDisplay() {
     display.value = " ";
     result.value = " ";
@@ -28,11 +29,42 @@ function bracetRight(input = ")"){
         alert("Nie można dodać zamykającego nawiasu przed otwierającym");
     }
 };
+function square(input = "√") {
+    try{
+        display.value += input;
+    } catch(e){
+        display.value = "Nie dodano znaku pierwiastka";
+    }
+}
+function mod(input = " mod "){
+    try{
+        display.value += input;
+    } catch(e){
+        display.value = "Nie dodano znaku mod";
+    }
+}
+
 
 function equals() {
     try {
-        result.value = math.evaluate(display.value);
+        switch(true){
+            case display.value.includes("√"):
+                const number = display.value.replace("√", "").trim();
+                if (!isNaN(number) && number !== "") {
+                    const sqrtResult = math.evaluate(`sqrt(${number})`);
+                    result.value = `${sqrtResult}`;
+                } else {
+                throw new Error("Nieprawidłowy format pierwiastka");
+                }
+            break;
+            case display.value.includes("mod"):
+
+            break;
+            default:
+                result.value = math.evaluate(display.value);
+        }
     } catch (e) {
-        display.value = "Error";
+        display.value = "Błąd obliczenia";
+        console.error("Błąd:", e);
     }
 }
