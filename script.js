@@ -1,3 +1,5 @@
+module.exports = { addToDisplay };
+module.exports = { testEnvironment: 'jsdom'};
 
 const display = document.getElementById("display");
 const result = document.getElementById("result");
@@ -14,6 +16,7 @@ function clearDisplay() {
 function addToDisplay(input) {
     display.value += input;
 };
+
 //function which he add left bracket
 function bracetLeft(input = "("){
     if (display.value.slice(-1) !== "(") {

@@ -1,0 +1,21 @@
+{
+  "name": "simplecatalog",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "description": "Calculator JavaScript",
+  "author": "Marcin",
+  "license": "ISC",
+  "keywords": ["catalog", "javascript", "jest", "jsdom", "testing"],
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
+
