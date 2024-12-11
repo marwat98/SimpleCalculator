@@ -1,5 +1,4 @@
-module.exports = { addToDisplay };
-module.exports = { testEnvironment: 'jsdom'};
+module.exports = { addToDisplay, clearDisplay , bracketLeft};
 
 const display = document.getElementById("display");
 const result = document.getElementById("result");
@@ -9,21 +8,48 @@ let rightBracket = 0;
 
 //function which clear all display numbers
 function clearDisplay() {
-    display.value = " ";
-    result.value = " ";
+    const display = document.getElementById("display");
+    const result = document.getElementById("result");
+
+    if(!display || !result) {
+        throw new Error("Display or result element does not exist in the DOM");
+    } else {
+        display.value = ""; 
+        result.value = ""; 
+    }
 };
 //function which do mathematic algoritms like (addition,substraction,multiplication,division e.t.c)
 function addToDisplay(input) {
-    display.value += input;
+    const display = document.getElementById("display");
+    if(display){
+        display.value += input;
+    } else {
+        throw new Error("Display element nothing exist");
+    }
 };
 
 //function which he add left bracket
-function bracetLeft(input = "("){
-    if (display.value.slice(-1) !== "(") {
+function bracketLeft(input = "(") {
+    const display = document.getElementById("display");
+    if (!display) {
+        throw new Error("Display element not found");
+    }
+    if (!input) {
+        throw new Error("Input cannot be empty");
+    }
+    const displayValue = display.value || '';
+    if (!displayValue.endsWith("(")) {
         display.value += input;
+
+        if (typeof leftBracket === 'undefined') {
+            throw new Error("leftBracket variable is not defined");
+        }
         leftBracket++; 
+    } else {
+        throw new Error("Cannot add left bracket after another left bracket");
     }
 };
+
 //function which he add right bracket
 function bracetRight(input = ")"){
     if(rightBracket < leftBracket){
