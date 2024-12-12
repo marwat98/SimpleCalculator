@@ -1,4 +1,3 @@
-module.exports = { addToDisplay, clearDisplay , bracketLeft};
 
 const display = document.getElementById("display");
 const result = document.getElementById("result");
@@ -51,7 +50,14 @@ function bracketLeft(input = "(") {
 };
 
 //function which he add right bracket
-function bracetRight(input = ")"){
+function bracketRight(input = ")"){
+    const display = document.getElementById("display");
+    if (!display) {
+        throw new Error("Display element not found");
+    }
+    if(leftBracket <= 0){
+        throw new Error("Can't addition right bracket without left bracket");
+    }
     if(rightBracket < leftBracket){
         display.value += input;
         rightBracket++; 
@@ -61,10 +67,11 @@ function bracetRight(input = ")"){
 };
 //function which he add square symbol
 function square(input = "√") {
-    try{
+    const display = document.getElementById("display");
+    if (!display) {
+        throw new Error("Display element not found");
+    } else {
         display.value += input;
-    } catch(e){
-        display.value = "Nie dodano znaku pierwiastka";
     }
 };
 //function which he add mod symbol
@@ -80,7 +87,7 @@ function squareOfNumberMultiplication(input = "²"){
     try{
         display.value += input;
     } catch(e){
-        display.value = "Nie dodano znaku pierwiastka";
+        display.value = "Nie dodano znaku kwadratu liczby";
     }
 };
 //function which calculations mathematic operations
@@ -125,3 +132,5 @@ function equals() {
         console.error("Błąd:", e);
     }
 };
+
+module.exports = { addToDisplay, clearDisplay , bracketLeft,bracketRight, square};

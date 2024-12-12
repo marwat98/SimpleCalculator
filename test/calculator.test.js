@@ -1,6 +1,8 @@
-const {addToDisplay}= require('../script.js');
-const {clearDisplay}= require('../script.js');
-const {bracketLeft}= require('../script.js');
+const {addToDisplay}= require('../script');
+const {clearDisplay}= require('../script');
+const {bracketLeft}= require('../script');
+const {bracketRight}= require('../script');
+const {square}= require('../script');
 
 let display;
 let result;
@@ -63,4 +65,24 @@ test("Should throw an error if input is empty", () => {
 test("Should throw an error if display dosen't exist", () =>{
   document.getElementById = jest.fn().mockReturnValue(null);
   expect(() => bracketLeft()).toThrowError("Display element not found");
+});
+test("Check if when i  addition left bracket gonna can addition number", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '(2'});
+  expect(() => bracketLeft().toBe('(2'));
+});
+test("Check if when  i addition first number function gonna be work without left bracket", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '2'});
+  expect(() => bracketLeft().toThrowError("First you must addition left bracket"));
+});
+test("Should throw error if don't hava left bracket", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '2)'});
+  expect(() => bracketRight().toThrowError("First you must addition left bracket"));
+});
+test("Should perfom function", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '(2+2)'});
+  expect(() => bracketRight().toBe("2+2"));
+});
+test("If sqaure is display", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '√'});
+  expect(() => square().toBe("√"));
 });
