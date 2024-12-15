@@ -1,15 +1,29 @@
 
-const display = document.getElementById("display");
-const result = document.getElementById("result");
+const getDisplay = () => document.getElementById("display");
+const getResult = () => document.getElementById("result");
 
 let leftBracket = 0;
 let rightBracket = 0;
 
+function displayShowPanel(input){
+    return function(){
+        const display = getDisplay();
+        if (!display) {
+            throw new Error("Nie znaleziono znaku: " + input);
+        } else {
+            display.value += input;
+        }
+    }
+};
+//High-Order Functions
+const square = displayShowPanel("√");
+const mod = displayShowPanel("mod");
+const squareOfNumberMultiplication= displayShowPanel("²");
+
 //function which clear all display numbers
 function clearDisplay() {
-    const display = document.getElementById("display");
-    const result = document.getElementById("result");
-
+    const display = getDisplay();
+    const result = getResult();
     if(!display || !result) {
         throw new Error("Display or result element does not exist in the DOM");
     } else {
@@ -19,17 +33,16 @@ function clearDisplay() {
 };
 //function which do mathematic algoritms like (addition,substraction,multiplication,division e.t.c)
 function addToDisplay(input) {
-    const display = document.getElementById("display");
+    const display = getDisplay();
     if(display){
         display.value += input;
     } else {
         throw new Error("Display element nothing exist");
     }
 };
-
 //function which he add left bracket
 function bracketLeft(input = "(") {
-    const display = document.getElementById("display");
+    const display = getDisplay();
     if (!display) {
         throw new Error("Display element not found");
     }
@@ -51,7 +64,7 @@ function bracketLeft(input = "(") {
 
 //function which he add right bracket
 function bracketRight(input = ")"){
-    const display = document.getElementById("display");
+    const display = getDisplay();
     if (!display) {
         throw new Error("Display element not found");
     }
@@ -65,48 +78,25 @@ function bracketRight(input = ")"){
         alert("Nie można dodać zamykającego nawiasu przed otwierającym");
     }
 };
-//function which he add square symbol
-function square(input = "√") {
-    const display = document.getElementById("display");
-    if (!display) {
-        throw new Error("Display element not found");
-    } else {
-        display.value += input;
-    }
-};
-//function which he add mod symbol
-function mod(input = "mod"){
-    try{
-        display.value += input;
-    } catch(e){
-        display.value = "Nie dodano znaku pierwiastka";
-    }
-};
-//function which he add square of number symbol
-function squareOfNumberMultiplication(input = "²"){
-    try{
-        display.value += input;
-    } catch(e){
-        display.value = "Nie dodano znaku kwadratu liczby";
-    }
-};
 //function which calculations mathematic operations
-function equals() {
-    try {
+function equals(display) {
         switch(true){
-            case display.value.includes("√"):
-
+            case "√":
+                if (!display.value.includes("√")) {
+                    throw new Error('Brak symbolu √ w wyrażeniu');
+                }
                 const number = display.value.replace("√", "").trim();
-                try{
+                try {
                     const sqrtResult = math.evaluate(`sqrt(${number})`);
                     result.value = `${sqrtResult}`;
-                }catch (error) {
+                } catch (error) {
                     throw new Error("Nieprawidłowy format pierwiastka");
                 }
-
             break;
-            case display.value.includes("mod"):
-
+            case "mod":
+                if (!display.value.includes("mod")) {
+                    throw new Error('Brak symbolu mod w wyrażeniu');
+                }
                 const numberMod = display.value.replace("mod", "%");
                 try {
                     const modResult = math.evaluate(numberMod);
@@ -115,7 +105,10 @@ function equals() {
                     throw new Error("Nieprawidłowe wyrażenie dla modulo");
                 }
             break;
-            case display.value.includes("²"):
+            case "²":
+                if (!display.value.includes("²")) {
+                    throw new Error('Brak symbolu ² w wyrażeniu');
+                }
                 const multiplicationDouble = display.value.replace("²", "").trim();
                 try{
                     const squareOfNumber = math.evaluate(`${multiplicationDouble} * ${multiplicationDouble}`);
@@ -127,10 +120,7 @@ function equals() {
             default:
                 result.value = math.evaluate(display.value);
         }
-    } catch (e) {
-        display.value = "Błąd obliczenia";
-        console.error("Błąd:", e);
-    }
 };
 
-module.exports = { addToDisplay, clearDisplay , bracketLeft,bracketRight, square};
+module.exports = { addToDisplay, clearDisplay , bracketLeft,bracketRight, square, mod, squareOfNumberMultiplication,equals};
+

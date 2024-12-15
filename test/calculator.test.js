@@ -1,11 +1,6 @@
-const {addToDisplay}= require('../script');
-const {clearDisplay}= require('../script');
-const {bracketLeft}= require('../script');
-const {bracketRight}= require('../script');
-const {square}= require('../script');
+const {addToDisplay,clearDisplay,bracketLeft,bracketRight,square,mod,squareOfNumberMultiplication,equals}= require('../script');
 
-let display;
-let result;
+let display,result;
 
 //JSDOM Side
 beforeEach(() => {
@@ -85,4 +80,17 @@ test("Should perfom function", () =>{
 test("If sqaure is display", () =>{
   document.getElementById = jest.fn().mockReturnValue({value : '√'});
   expect(() => square().toBe("√"));
+});
+test("If mod is display", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : 'mod'});
+  expect(() => mod().toBe("mod"));
+});
+test("If sqaureOfNumberMultiplication is display", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '²'});
+  expect(() => squareOfNumberMultiplication().toBe("²"));
+});
+test("If calculate", () =>{
+  display.value = "2 +3"
+  const result = equals(display);
+  expect(result).toBe("5");
 });
