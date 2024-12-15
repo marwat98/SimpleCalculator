@@ -43,14 +43,14 @@ function addToDisplay(input) {
 //function which he add left bracket
 function bracketLeft(input = "(") {
     const display = getDisplay();
-    if (!display) {
+    if(!display) {
         throw new Error("Display element not found");
     }
-    if (!input) {
+    if(!input) {
         throw new Error("Input cannot be empty");
     }
     const displayValue = display.value || '';
-    if (!displayValue.endsWith("(")) {
+    if(!displayValue.endsWith("(")) {
         display.value += input;
 
         if (typeof leftBracket === 'undefined') {
@@ -65,7 +65,7 @@ function bracketLeft(input = "(") {
 //function which he add right bracket
 function bracketRight(input = ")"){
     const display = getDisplay();
-    if (!display) {
+    if(!display) {
         throw new Error("Display element not found");
     }
     if(leftBracket <= 0){
@@ -82,7 +82,7 @@ function bracketRight(input = ")"){
 function equals(display) {
         switch(true){
             case "√":
-                if (!display.value.includes("√")) {
+                if(!display.value.includes("√")) {
                     throw new Error('Brak symbolu √ w wyrażeniu');
                 }
                 const number = display.value.replace("√", "").trim();
@@ -94,7 +94,7 @@ function equals(display) {
                 }
             break;
             case "mod":
-                if (!display.value.includes("mod")) {
+                if(!display.value.includes("mod")) {
                     throw new Error('Brak symbolu mod w wyrażeniu');
                 }
                 const numberMod = display.value.replace("mod", "%");

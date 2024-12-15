@@ -89,8 +89,47 @@ test("If sqaureOfNumberMultiplication is display", () =>{
   document.getElementById = jest.fn().mockReturnValue({value : '²'});
   expect(() => squareOfNumberMultiplication().toBe("²"));
 });
-test("If calculate", () =>{
-  display.value = "2 +3"
-  const result = equals(display);
-  expect(result).toBe("5");
+test("If addition two numbers", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '2+2'});
+  expect(() => equals().toBe("4"));
+});
+test("If minus two numbers", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '2-2'});
+  expect(() => equals().toBe("0"));
+});
+test("If multiplication two numbers", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '2*2'});
+  expect(() => equals().toBe("4"));
+});
+test("If devide two numbers", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '2/2'});
+  expect(() => equals().toBe("1"));
+});
+test("Complicated calculations expect calculations 8", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '(2+2)*2'});
+  expect(() => equals().toBe("8"));
+});
+test("Calculations with number pi", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '3 + 3,141592654'});
+  expect(() => equals().toBe("6,141592654"));
+});
+test("Second calculations with number pi", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '(73 + 4) * 3,141592654'});
+  expect(() => equals().toBe("241,902634326"));
+});
+test("Calcuations √81", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '√81'});
+  expect(() => equals().toBe("9"));
+});
+test("Second calcuations 25√5", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '25√5'});
+  expect(() => equals().toBe("55,901699437"));
+});
+test("Calculations 81 mod 5", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '81 mod 5'});
+  expect(() => equals().toBe("1"));
+});
+test("Wrong Calculations 81 mod 5", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '81 mod 5'});
+  expect(() => equals().toBe("2"));
 });
