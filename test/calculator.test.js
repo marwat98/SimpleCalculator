@@ -125,6 +125,10 @@ test("Second calcuations 25√5", () =>{
   document.getElementById = jest.fn().mockReturnValue({value : '25√5'});
   expect(() => equals().toBe("55,901699437"));
 });
+test("Wrong calcuations 25√5", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '25√5'});
+  expect(() => equals().toBe("54,901699437"));
+});
 test("Calculations 81 mod 5", () =>{
   document.getElementById = jest.fn().mockReturnValue({value : '81 mod 5'});
   expect(() => equals().toBe("1"));
@@ -132,4 +136,12 @@ test("Calculations 81 mod 5", () =>{
 test("Wrong Calculations 81 mod 5", () =>{
   document.getElementById = jest.fn().mockReturnValue({value : '81 mod 5'});
   expect(() => equals().toBe("2"));
+});
+test("Calculations 2^2", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '2²'});
+  expect(() => equals().toBe("4"));
+});
+test("Wrong Calculations 2^2", () =>{
+  document.getElementById = jest.fn().mockReturnValue({value : '2²'});
+  expect(() => equals().toBe("3"));
 });

@@ -7,7 +7,7 @@ let rightBracket = 0;
 
 function displayShowPanel(input){
     return function(){
-        const display = getDisplay();
+        let display = getDisplay();
         if (!display) {
             throw new Error("Nie znaleziono znaku: " + input);
         } else {
@@ -24,12 +24,13 @@ const squareOfNumberMultiplication= displayShowPanel("²");
 function clearDisplay() {
     const display = getDisplay();
     const result = getResult();
-    if(!display || !result) {
-        throw new Error("Display or result element does not exist in the DOM");
-    } else {
-        display.value = ""; 
-        result.value = ""; 
+    if(!display) {
+        throw new Error("Display element does not exist in the DOM");
+    }if(!result){
+        throw new Error("Result element does not exist in the DOM");
     }
+    display.value = ""; 
+    result.value = ""; 
 };
 //function which do mathematic algoritms like (addition,substraction,multiplication,division e.t.c)
 function addToDisplay(input) {
@@ -79,48 +80,49 @@ function bracketRight(input = ")"){
     }
 };
 //function which calculations mathematic operations
-function equals(display) {
-        switch(true){
-            case "√":
-                if(!display.value.includes("√")) {
-                    throw new Error('Brak symbolu √ w wyrażeniu');
-                }
-                const number = display.value.replace("√", "").trim();
-                try {
-                    const sqrtResult = math.evaluate(`sqrt(${number})`);
-                    result.value = `${sqrtResult}`;
-                } catch (error) {
-                    throw new Error("Nieprawidłowy format pierwiastka");
-                }
-            break;
-            case "mod":
-                if(!display.value.includes("mod")) {
-                    throw new Error('Brak symbolu mod w wyrażeniu');
-                }
-                const numberMod = display.value.replace("mod", "%");
-                try {
-                    const modResult = math.evaluate(numberMod);
-                    result.value = `${modResult}`; // Wyświetl wynik w result.value
-                } catch (error) {
-                    throw new Error("Nieprawidłowe wyrażenie dla modulo");
-                }
-            break;
-            case "²":
-                if (!display.value.includes("²")) {
-                    throw new Error('Brak symbolu ² w wyrażeniu');
-                }
-                const multiplicationDouble = display.value.replace("²", "").trim();
-                try{
-                    const squareOfNumber = math.evaluate(`${multiplicationDouble} * ${multiplicationDouble}`);
-                    result.value = `${squareOfNumber}`;
-                }catch (error) {
-                    throw new Error("Niepoprawne obliczenie kwadratu liczby");
-                }
-            break;
-            default:
-                result.value = math.evaluate(display.value);
-        }
-};
+function equals() {
+    const display = getDisplay();
+    const result = getResult();
 
+    if (display.value.includes("√")) {
+        const number = display.value.replace("√", "").trim();
+        if (isNaN(number) || number === "") throw new Error("Nieprawidłowy format pierwiastka");
+
+        try {
+            const sqrtResult = math.evaluate(`sqrt(${number})`);
+            result.value = `${sqrtResult}`;
+        } catch (error) {
+            throw new Error("Nieprawidłowy format pierwiastka");
+        }
+
+    } else if (display.value.includes("mod")) {
+        const numberMod = display.value.replaceAll("mod", "%");
+
+        try {
+            const modResult = math.evaluate(numberMod);
+            result.value = `${modResult}`;
+        } catch (error) {
+            throw new Error("Nieprawidłowe wyrażenie dla modulo");
+        }
+
+    } else if (display.value.includes("²")) {
+        const multiplicationDouble = display.value.replace("²", "").trim();
+        if (isNaN(multiplicationDouble) || multiplicationDouble === "") throw new Error("Niepoprawne obliczenie kwadratu liczby");
+
+        try {
+            const squareOfNumber = math.evaluate(`${multiplicationDouble}^2`);
+            result.value = `${squareOfNumber}`;
+        } catch (error) {
+            throw new Error("Niepoprawne obliczenie kwadratu liczby");
+        }
+
+    } else {
+        try {
+            result.value = math.evaluate(display.value);
+        } catch (error) {
+            throw new Error("Nieprawidłowe wyrażenie matematyczne");
+        }
+    }
+};
 module.exports = { addToDisplay, clearDisplay , bracketLeft,bracketRight, square, mod, squareOfNumberMultiplication,equals};
 
